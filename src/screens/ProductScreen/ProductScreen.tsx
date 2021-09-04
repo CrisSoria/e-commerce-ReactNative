@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {ScrollView, Text} from 'react-native';
 import {Picker} from '@react-native-picker/picker';
+import {useRoute} from '@react-navigation/native'; // para obtener detalles de nuestras rutas
 import styles from './styles';
 
 import product from '../../data/product';
@@ -11,6 +12,10 @@ import ImageCarousel from '../../components/ImageCarousel/ImageCarousel';
 const ProductScreen = () => {
   const [selectedOption, setSelectedOption] = useState(product.options?.[0]);
   const [quantity, setQuantity] = useState(1);
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const route = useRoute();
+  // console.log(route.params);
 
   return (
     <ScrollView style={styles.root}>

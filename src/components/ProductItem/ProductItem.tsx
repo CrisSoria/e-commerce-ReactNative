@@ -1,5 +1,6 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, Pressable, Text, View} from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import styles from './styles';
 
@@ -16,6 +17,7 @@ interface ProductItem {
 }
 
 const ProductItem = ({item}: ProductItem) => {
+  const navigation = useNavigation<any>();
   function printRatingStars(rating: number) {
     const starFull = Math.trunc(rating);
     const startHalf = rating - starFull > 0;
@@ -32,7 +34,6 @@ const ProductItem = ({item}: ProductItem) => {
         color={'#e47911'}
       />
     );
-
     for (let i = 0; i < starFull; i++) {
       componente.push(compStar('star', i));
     }
@@ -42,12 +43,15 @@ const ProductItem = ({item}: ProductItem) => {
     for (let i = 1; i < emptyStars; i++) {
       componente.push(compStar('star-o', i + 7));
     }
-
     return componente;
   }
 
+  const onPress = () => {
+    navigation.navigate('ProductDetails', {id: item.id});
+  };
+
   return (
-    <View style={styles.root}>
+    <Pressable onPress={onPress} style={styles.root}>
       <Image
         style={styles.image}
         source={{
@@ -71,7 +75,7 @@ const ProductItem = ({item}: ProductItem) => {
           )}
         </Text>
       </View>
-    </View>
+    </Pressable>
   );
 };
 
